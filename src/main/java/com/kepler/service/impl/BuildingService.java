@@ -7,20 +7,19 @@ import com.kepler.dto.building.BuildingDTO;
 import com.kepler.dto.building.BuildingSearchRequest;
 import com.kepler.dto.building.BuildingSearchResponse;
 import com.kepler.dto.staff.StaffDTO;
-import com.kepler.entity.BuildingEntity;
-import com.kepler.entity.FileEntity;
-import com.kepler.entity.RentAreaEntity;
-import com.kepler.entity.UserEntity;
+import com.kepler.entity.*;
 import com.kepler.enums.BuildingRentStatusEnum;
 import com.kepler.enums.BuildingTypesEnum;
 import com.kepler.exception.UnProcessableEntityException;
 import com.kepler.repository.BuildingRepository;
+import com.kepler.repository.FloorRepository;
 import com.kepler.repository.RentAreaRepository;
 import com.kepler.repository.UserRepository;
 import com.kepler.security.IAuthenticationFacade;
 import com.kepler.service.IBuildingService;
 import com.kepler.service.IFileService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,6 +44,9 @@ public class BuildingService implements IBuildingService {
     private final IFileService fileService;
     private final IAuthenticationFacade authenticationFacade;
 
+    @Autowired
+    FloorRepository floorRepository;
+
 
     @Override
     public PageableDTO<BuildingSearchResponse> searchBuildings(BuildingSearchRequest buildingSearchRequest) {
@@ -52,6 +54,35 @@ public class BuildingService implements IBuildingService {
         Long currentLoggedInStaffId = authenticationFacade.getCurrentLoggedInStaffId();
 
         Page<BuildingEntity> buildingPage = buildingRepository.findByCondition(buildingSearchRequest, currentLoggedInStaffId);
+
+        List<BuildingEntity> buildings = buildingPage.getContent();
+        List<Long> bIds = buildings.stream()
+                .map(BuildingEntity::getId)
+                .collect(Collectors.toList());
+
+        List<FloorEntity> floors = floorRepository.findAllByBuildingIdIn(bIds);
+        for(BuildingEntity b : buildings) {
+            List<FloorEntity> bFloors = floors.stream().filter(f -> f.getBuildingId() == b.getId()).collect(Collectors.toList());
+
+            long totalRentArea= 0;
+            long totalArea = 0;
+            long totalRentPrice = 0;
+            long totalRentFloor = 0;
+
+            for(FloorEntity f : bFloors) {
+                totalArea += f.getArea();
+                totalRentArea += f.getRentArea();
+                if(totalRentArea > 0) {
+                    totalRentFloor ++;
+                }
+                totalRentPrice += (long) f.getRentArea() * f.getPrice();
+            }
+
+            b.setTotalArea(totalArea);
+            b.setTotalRentArea(totalRentArea);
+            b.setTotalRentPrice(totalRentPrice);
+            b.setTotalRentFloor(totalRentFloor);
+        }
 
         return buildingConverter.convertToPageableResponse(buildingPage);
     }
@@ -84,13 +115,24 @@ public class BuildingService implements IBuildingService {
             buildingConverter.convertToExistingEntityFromDTO(buildingDTO, buildingEntity);
         } else { // create new building
             buildingEntity = buildingConverter.convertToEntityFromDTO(buildingDTO);
-            buildingRepository.save(buildingEntity);
+            BuildingEntity building = buildingRepository.save(buildingEntity);
+
+            for(int i=1; i<= buildingDTO.getTotalFloor() ; i ++) {
+                floorRepository.save(buildFloor(building, i));
+            }
         }
 
         createRentAreas(buildingEntity, buildingDTO.getRentAreas()); // create new rent areas
         updateImage(buildingEntity, image);
 
         return buildingEntity.getId();
+    }
+    private FloorEntity buildFloor(BuildingEntity building, Integer stt) {
+        FloorEntity floorEntity = new FloorEntity();
+        floorEntity.setBuildingId(building.getId());
+        floorEntity.setStt(stt);
+        floorEntity.setPrice(building.getRentPrice());
+        return floorEntity;
     }
 
     private void updateImage(BuildingEntity buildingEntity, MultipartFile image) {

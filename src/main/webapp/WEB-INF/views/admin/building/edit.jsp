@@ -140,40 +140,26 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="col-sm-2" style="padding-top:7px" for="structure"> Kết cấu </label>
-                            <div class="col-sm-10">
-                                <input type="text" id="structure" name="structure" value="${building.structure}" class="col-sm-12" />
-                            </div>
-                        </div>
+<%--                        <div class="form-group">--%>
+<%--                            <label class="col-sm-2" style="padding-top:7px" for="structure"> Kết cấu </label>--%>
+<%--                            <div class="col-sm-10">--%>
+<%--                                <input type="text" id="structure" name="structure" value="${building.structure}" class="col-sm-12" />--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
 
-                        <div class="form-group">
-                            <label class="col-sm-2" style="padding-top:7px" for="number-of-basement"> Số tầng hầm </label>
-                            <div class="col-sm-10">
-                                <input type="number" id="number-of-basement" name="numberOfBasement" value="${building.numberOfBasement}" class="col-sm-12" />
-                            </div>
-                        </div>
+<%--                        <div class="form-group">--%>
+<%--                            <label class="col-sm-2" style="padding-top:7px" for="number-of-basement"> Số tầng hầm </label>--%>
+<%--                            <div class="col-sm-10">--%>
+<%--                                <input type="number" id="number-of-basement" name="numberOfBasement" value="${building.numberOfBasement}" class="col-sm-12" />--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
 
-                        <div class="form-group">
-                            <label class="col-sm-2" style="padding-top:7px" for="floor-area"> Diện tích sàn </label>
-                            <div class="col-sm-10">
-                                <input type="number" id="floor-area" name="floorArea" value="${building.floorArea}" class="col-sm-12" />
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-2" style="padding-top:7px" for="rental-price"> Giá thuê</label>
-                            <div class="col-sm-10">
-                                <input type="number" id="rental-price" name="rentPrice" value="${building.rentPrice}" class="col-sm-12" />
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-2" style="padding-top:7px" for="direction"> Hướng </label>
-                            <div class="col-sm-10">
-                                <input type="text" id="direction" name="direction" value="${building.direction}" class="col-sm-12" />
-                            </div>
-                        </div>
+<%--                        <div class="form-group">--%>
+<%--                            <label class="col-sm-2" style="padding-top:7px" for="floor-area"> Diện tích sàn </label>--%>
+<%--                            <div class="col-sm-10">--%>
+<%--                                <input type="number" id="floor-area" name="floorArea" value="${building.floorArea}" class="col-sm-12" />--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
 
                         <div class="form-group">
                             <label class="col-sm-2" style="padding-top:7px" for="level"> Hạng </label>
@@ -183,9 +169,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-2" style="padding-top:7px" for="rental-area"> Diện tích thuê (VD 100,200,300)</label>
+                            <label class="col-sm-2" style="padding-top:7px" for="rental-price"> Giá thông thường</label>
                             <div class="col-sm-10">
-                                <input type="text" id="rental-area" name="rentAreas" value="${building.rentAreas}" class="col-sm-12" />
+                                <input type="number" id="rental-price" name="rentPrice" value="${building.rentPrice}" class="col-sm-12" />
                             </div>
                         </div>
 
@@ -196,75 +182,91 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="col-sm-2" style="padding-top:7px" for="service-fee"> Phí dịch vụ </label>
-                            <div class="col-sm-10">
-                                <input type="text" id="service-fee" name="serviceFee" value="${building.serviceFee}" class="col-sm-12" />
-                            </div>
-                        </div>
+<%--                        <div class="form-group">--%>
+<%--                            <label class="col-sm-2" style="padding-top:7px" for="direction"> Hướng </label>--%>
+<%--                            <div class="col-sm-10">--%>
+<%--                                <input type="text" id="direction" name="direction" value="${building.direction}" class="col-sm-12" />--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
 
-                        <div class="form-group">
-                            <label class="col-sm-2" style="padding-top:7px" for="car-fee"> Phí ô tô </label>
-                            <div class="col-sm-10">
-                                <input type="text" id="car-fee" name="carFee" value="${building.carFee}" class="col-sm-12" />
-                            </div>
-                        </div>
+<%--                        <div class="form-group">--%>
+<%--                            <label class="col-sm-2" style="padding-top:7px" for="rental-area"> Diện tích thuê (VD 100,200,300)</label>--%>
+<%--                            <div class="col-sm-10">--%>
+<%--                                <input type="text" id="rental-area" name="rentAreas" value="${building.rentAreas}" class="col-sm-12" />--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
 
-                        <div class="form-group">
-                            <label class="col-sm-2" style="padding-top:7px" for="motorbike-fee"> Phí mô tô</label>
-                            <div class="col-sm-10">
-                                <input type="text" id="motorbike-fee" name="motorbikeFee" value="${building.motorbikeFee}" class="col-sm-12" />
-                            </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label class="col-sm-2" style="padding-top:7px" for="overtime-fee"> Phí ngoài giờ</label>
-                            <div class="col-sm-10">
-                                <input type="text" id="overtime-fee" name="overtimeFee" value="${building.overtimeFee}" class="col-sm-12" />
-                            </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label class="col-sm-2" style="padding-top:7px" for="electricity-fee"> Tiền điện</label>
-                            <div class="col-sm-10">
-                                <input type="text" id="electricity-fee" name="electricityFee" value="${building.electricityFee}" class="col-sm-12" />
-                            </div>
-                        </div>
+<%--                        <div class="form-group">--%>
+<%--                            <label class="col-sm-2" style="padding-top:7px" for="service-fee"> Phí dịch vụ </label>--%>
+<%--                            <div class="col-sm-10">--%>
+<%--                                <input type="text" id="service-fee" name="serviceFee" value="${building.serviceFee}" class="col-sm-12" />--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
 
-                        <div class="form-group">
-                            <label class="col-sm-2" style="padding-top:7px" for="deposit"> Đặt cọc </label>
-                            <div class="col-sm-10">
-                                <input type="text" id="deposit" name="deposit" value="${building.deposit}" class="col-sm-12" />
-                            </div>
-                        </div>
+<%--                        <div class="form-group">--%>
+<%--                            <label class="col-sm-2" style="padding-top:7px" for="car-fee"> Phí ô tô </label>--%>
+<%--                            <div class="col-sm-10">--%>
+<%--                                <input type="text" id="car-fee" name="carFee" value="${building.carFee}" class="col-sm-12" />--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
 
-                        <div class="form-group">
-                            <label class="col-sm-2" style="padding-top:7px" for="payment"> Thanh toán</label>
-                            <div class="col-sm-10">
-                                <input type="text" id="payment" name="payment" value="${building.payment}" class="col-sm-12" />
-                            </div>
-                        </div>
+<%--                        <div class="form-group">--%>
+<%--                            <label class="col-sm-2" style="padding-top:7px" for="motorbike-fee"> Phí mô tô</label>--%>
+<%--                            <div class="col-sm-10">--%>
+<%--                                <input type="text" id="motorbike-fee" name="motorbikeFee" value="${building.motorbikeFee}" class="col-sm-12" />--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
 
-                        <div class="form-group">
-                            <label class="col-sm-2" style="padding-top:7px" for="rent-time"> Thời gian thuê</label>
-                            <div class="col-sm-10">
-                                <input type="text" id="rent-time" name="rentTime" value="${building.rentTime}" class="col-sm-12" />
-                            </div>
-                        </div>
+<%--                        <div class="form-group">--%>
+<%--                            <label class="col-sm-2" style="padding-top:7px" for="overtime-fee"> Phí ngoài giờ</label>--%>
+<%--                            <div class="col-sm-10">--%>
+<%--                                <input type="text" id="overtime-fee" name="overtimeFee" value="${building.overtimeFee}" class="col-sm-12" />--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
 
-                        <div class="form-group">
-                            <label class="col-sm-2" style="padding-top:7px" for="decoration-time"> Thời gian trang trí</label>
-                            <div class="col-sm-10">
-                                <input type="text" id="decoration-time" name="decorationTime" value="${building.decorationTime}" class="col-sm-12" />
-                            </div>
-                        </div>
+<%--                        <div class="form-group">--%>
+<%--                            <label class="col-sm-2" style="padding-top:7px" for="electricity-fee"> Tiền điện</label>--%>
+<%--                            <div class="col-sm-10">--%>
+<%--                                <input type="text" id="electricity-fee" name="electricityFee" value="${building.electricityFee}" class="col-sm-12" />--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
 
-                        <div class="form-group">
-                            <label class="col-sm-2" style="padding-top:7px" for="brokerage-fee"> Phí mô giới</label>
-                            <div class="col-sm-10">
-                                <input type="number" id="brokerage-fee" name="brokerageFee" value="${building.brokerageFee}" class="col-sm-12" />
-                            </div>
-                        </div>
+<%--                        <div class="form-group">--%>
+<%--                            <label class="col-sm-2" style="padding-top:7px" for="deposit"> Đặt cọc </label>--%>
+<%--                            <div class="col-sm-10">--%>
+<%--                                <input type="text" id="deposit" name="deposit" value="${building.deposit}" class="col-sm-12" />--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
+
+<%--                        <div class="form-group">--%>
+<%--                            <label class="col-sm-2" style="padding-top:7px" for="payment"> Thanh toán</label>--%>
+<%--                            <div class="col-sm-10">--%>
+<%--                                <input type="text" id="payment" name="payment" value="${building.payment}" class="col-sm-12" />--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
+
+<%--                        <div class="form-group">--%>
+<%--                            <label class="col-sm-2" style="padding-top:7px" for="rent-time"> Thời gian thuê</label>--%>
+<%--                            <div class="col-sm-10">--%>
+<%--                                <input type="text" id="rent-time" name="rentTime" value="${building.rentTime}" class="col-sm-12" />--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
+
+<%--                        <div class="form-group">--%>
+<%--                            <label class="col-sm-2" style="padding-top:7px" for="decoration-time"> Thời gian trang trí</label>--%>
+<%--                            <div class="col-sm-10">--%>
+<%--                                <input type="text" id="decoration-time" name="decorationTime" value="${building.decorationTime}" class="col-sm-12" />--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
+
+<%--                        <div class="form-group">--%>
+<%--                            <label class="col-sm-2" style="padding-top:7px" for="brokerage-fee"> Phí mô giới</label>--%>
+<%--                            <div class="col-sm-10">--%>
+<%--                                <input type="number" id="brokerage-fee" name="brokerageFee" value="${building.brokerageFee}" class="col-sm-12" />--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
 
                         <div class="form-group">
                             <label class="col-sm-2" style="padding-top:7px; margin-right: 12px"> Loại tòa nhà</label>

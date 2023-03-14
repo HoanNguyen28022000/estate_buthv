@@ -27,17 +27,17 @@ public class BuildingEntity extends BaseEntity {
 	@Column(name = "district")
 	private String district;
 	
-	@Column(name = "structure")
-	private String structure;
+//	@Column(name = "structure")
+//	private String structure;
 	
-	@Column(name = "numberofbasement")
-	private Integer numberOfBasement;
+//	@Column(name = "numberofbasement")
+//	private Integer numberOfBasement;
 	
-	@Column(name = "floorarea")
-	private Integer floorArea;
+//	@Column(name = "floorarea")
+//	private Integer floorArea;
 	
-	@Column(name = "direction")
-	private String direction;
+//	@Column(name = "direction")
+//	private String direction;
 	
 	@Column(name = "level")
 	private String level;
@@ -47,39 +47,42 @@ public class BuildingEntity extends BaseEntity {
 
 	@Column(name = "rentpricedescription")
 	private String rentPriceDescription;
+
+	@Column(name = "totalfloor")
+	private Long totalfloor;
 	
-	@Column(name = "servicefee")
-	private String serviceFee;
+//	@Column(name = "servicefee")
+//	private String serviceFee;
 	
-	@Column(name = "carfee")
-	private String carFee;
+//	@Column(name = "carfee")
+//	private String carFee;
 	
-	@Column(name = "motofee")
-	private String motorbikeFee;
+//	@Column(name = "motofee")
+//	private String motorbikeFee;
 	
-	@Column(name = "overtimefee")
-	private String overtimeFee;
+//	@Column(name = "overtimefee")
+//	private String overtimeFee;
 	
-	@Column(name = "waterfee")
-	private String waterFee;
+//	@Column(name = "waterfee")
+//	private String waterFee;
 	
-	@Column(name = "electricityfee")
-	private String electricityFee;
+//	@Column(name = "electricityfee")
+//	private String electricityFee;
 	
-	@Column(name = "deposit")
-	private String deposit;
+//	@Column(name = "deposit")
+//	private String deposit;
 	
-	@Column(name = "payment")
-	private String payment;
+//	@Column(name = "payment")
+//	private String payment;
 	
-	@Column(name = "renttime")
-	private String rentTime;
+//	@Column(name = "renttime")
+//	private String rentTime;
 	
-	@Column(name = "decorationtime")
-	private String decorationTime;
+//	@Column(name = "decorationtime")
+//	private String decorationTime;
 	
-	@Column(name = "brokeragetee")
-	private BigDecimal brokerageFee;
+//	@Column(name = "brokeragetee")
+//	private BigDecimal brokerageFee;
 	
 	@Column(name = "type")
 	private String type;
@@ -87,12 +90,12 @@ public class BuildingEntity extends BaseEntity {
 	@Column(name = "note")
 	private String note;
 	
-	@Column(name = "linkofbuilding")
-	private String linkOfBuilding;
-	
-	@Column(name = "map")
-	private String map;
-	
+//	@Column(name = "linkofbuilding")
+//	private String linkOfBuilding;
+
+//	@Column(name = "map")
+//	private String map;
+
 	@Column(name = "avatar")
 	private String avatar;
 
@@ -111,6 +114,18 @@ public class BuildingEntity extends BaseEntity {
 	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = LAZY)
 	@JoinColumn(name = "fileid")
 	private	FileEntity image;
+
+	@Transient
+	private long totalArea;
+
+	@Transient
+	private long totalRentArea;
+
+	@Transient
+	private long totalRentPrice;
+
+	@Transient
+	private long totalRentFloor;
 
     @Override
     public boolean equals(Object o) {

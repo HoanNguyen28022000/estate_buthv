@@ -143,20 +143,20 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group">
-                                                <div class="col-xs-12 col-sm-4">
-                                                    <label for="numberofbasement">Số tầng hầm</label>
-                                                    <input type="number" id="numberofbasement" class="form-control" name="numberOfBasement" value="${modelSearch.numberOfBasement}"/>
-                                                </div>
-                                                <div class="col-xs-12 col-sm-4">
-                                                    <label for="direction">Hướng</label>
-                                                    <input type="text" id="direction" class="form-control" name="direction" value="${modelSearch.direction}"/>
-                                                </div>
-                                                <div class="col-xs-12 col-sm-4">
-                                                    <label for="level">Hạng</label>
-                                                    <input type="text" id="level" class="form-control" name="level" value="${modelSearch.level}"/>
-                                                </div>
-                                            </div>
+<%--                                            <div class="form-group">--%>
+<%--                                                <div class="col-xs-12 col-sm-4">--%>
+<%--                                                    <label for="numberofbasement">Số tầng hầm</label>--%>
+<%--                                                    <input type="number" id="numberofbasement" class="form-control" name="numberOfBasement" value="${modelSearch.numberOfBasement}"/>--%>
+<%--                                                </div>--%>
+<%--                                                <div class="col-xs-12 col-sm-4">--%>
+<%--                                                    <label for="direction">Hướng</label>--%>
+<%--                                                    <input type="text" id="direction" class="form-control" name="direction" value="${modelSearch.direction}"/>--%>
+<%--                                                </div>--%>
+<%--                                                <div class="col-xs-12 col-sm-4">--%>
+<%--                                                    <label for="level">Hạng</label>--%>
+<%--                                                    <input type="text" id="level" class="form-control" name="level" value="${modelSearch.level}"/>--%>
+<%--                                                </div>--%>
+<%--                                            </div>--%>
 
                                             <div class="form-group">
                                                 <div class="col-xs-12 col-sm-3">
@@ -213,6 +213,10 @@
                                             </div>
 
                                             <div class="form-group">
+                                                <div class="col-xs-12 col-sm-4">
+                                                    <label for="level">Hạng</label>
+                                                    <input type="text" id="level" class="form-control" name="level" value="${modelSearch.level}"/>
+                                                </div>
                                                 <div class="col-xs-12 col-sm-4">
                                                     <label for="rentStatus">Trạng thái</label>
                                                     <br>
@@ -276,7 +280,6 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-12">
                             <div class="table-responsive">
-
                                 <table id="building-list" class="table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr>
@@ -284,11 +287,11 @@
                                             <th>Thời gian tạo</th>
                                             <th>Tên</th>
                                             <th>Địa chỉ</th>
-                                            <th>Nhân viên quản lý</th>
-                                            <th>Diện tích sàn</th>
-                                            <th>Diện tích thuê</th>
+<%--                                            <th>Nhân viên quản lý</th>--%>
+                                            <th>Diện tích khả dụng</th>
+                                            <th>Diện tích đã thuê</th>
+                                            <th>Tổng tiền cho thuê</th>
                                             <th>Loại tòa nhà</th>
-                                            <th>Giá thuê</th>
                                             <th>Trạng thái</th>
                                             <th>Thao tác</th>
                                         </tr>
@@ -306,21 +309,21 @@
                                                 <td>${item.createDate}</td>
                                                 <td>${item.name}</td>
                                                 <td>${item.address}</td>
-                                                <td id="col-manager-info">${item.managersInfo}</td>
-                                                <td>${item.floorArea} <c:if test="${item.floorArea != null}"> m^2</c:if> </td>
-                                                <td>${item.rentAreas} <c:if test="${item.rentAreas.length() > 0}"> m^2</c:if> </td>
+<%--                                                <td id="col-manager-info">${item.managersInfo}</td>--%>
+                                                <td>${item.totalArea} <c:if test="${item.totalArea != null}"> m^2</c:if> </td>
+                                                <td>${item.totalRentArea} <c:if test="${item.totalRentPrice != null}"> m^2</c:if> </td>
+                                                <td>${item.totalRentPrice} <c:if test="${item.totalRentPrice != null}"> triệu</c:if> </td>
                                                 <td>${item.typeName}</td>
-                                                <td>${item.rentPrice} <c:if test="${item.rentPrice != null}"> triệu</c:if> </td>
                                                 <td>${item.status}</td>
                                                 <td>
                                                     <a href='<c:url value='/admin/building-edit?id=${item.id}'/>' class="btn btn-xs btn-info" title="Chỉnh sửa thông tin">
                                                         <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
                                                     </a>
-                                                    <security:authorize access="hasRole('manager')">
-                                                        <button class="btn btn-xs btn-success" onclick="openModalAssignmentBuilding(${item.id}, '${item.name}')" title="Giao tòa nhà cho nhân viên quản lý">
-                                                            <i class="ace-icon fa fa-users bigger-120"></i>
-                                                        </button>
-                                                    </security:authorize>
+<%--                                                    <security:authorize access="hasRole('manager')">--%>
+<%--                                                        <button class="btn btn-xs btn-success" onclick="openModalAssignmentBuilding(${item.id}, '${item.name}')" title="Giao tòa nhà cho nhân viên quản lý">--%>
+<%--                                                            <i class="ace-icon fa fa-users bigger-120"></i>--%>
+<%--                                                        </button>--%>
+<%--                                                    </security:authorize>--%>
                                                 </td>
                                             </tr>
                                         </c:forEach>

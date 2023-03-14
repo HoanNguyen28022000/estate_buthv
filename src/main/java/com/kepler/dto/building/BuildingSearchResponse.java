@@ -3,6 +3,8 @@ package com.kepler.dto.building;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Transient;
+
 @Getter
 @Setter
 public class BuildingSearchResponse {
@@ -10,11 +12,9 @@ public class BuildingSearchResponse {
 	private String createDate;
 	private String name;
 	private String address;
-	private String managersInfo;
-	private Integer floorArea;
-    private String rentAreas;
-	private Integer rentPrice;
 	private String typeName;
 	private String status;
-
+	private long totalArea;
+	private long totalRentArea;
+	private long totalRentPrice;
 }

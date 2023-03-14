@@ -16,10 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -61,20 +58,21 @@ public class BuildingConverter {
         for (UserEntity staff: staffs) {
             managersInfo.add(getInfoFromUserEntity(staff));
         }
-        buildingSearchResponse.setManagersInfo(String.join(", ", managersInfo));
+//        buildingSearchResponse.setManagersInfo(String.join(", ", managersInfo));
 		
 		// set rent areas
-		Set<RentAreaEntity> rentAreas = buildingEntity.getRentAreas();
-		String rentAreasResponse = rentAreas.stream()
-                                            .map(rentArea -> rentArea.getValue().toString())
-				                            .collect(Collectors.joining(", "));
-		buildingSearchResponse.setRentAreas(rentAreasResponse);
+//		Set<RentAreaEntity> rentAreas = buildingEntity.getRentAreas();
+//		String rentAreasResponse = rentAreas.stream()
+//                                            .map(rentArea -> rentArea.getValue().toString())
+//				                            .collect(Collectors.joining(", "));
+//		buildingSearchResponse.setRentAreas("");
 
         // set create date
         buildingSearchResponse.setCreateDate(convertToDateTimeStr(buildingEntity.getCreatedDate(), "dd/MM/yyyy"));
 
         // set status
-        buildingSearchResponse.setStatus(BuildingRentStatusEnum.statusNameOf(buildingEntity.getStatus()));
+
+        buildingSearchResponse.setStatus(buildingEntity.getTotalRentFloor() + "/" + (Objects.isNull(buildingEntity.getTotalfloor()) ? "0" : buildingEntity.getTotalfloor())  + " Tầng");
 		
 		return buildingSearchResponse;
 	}
@@ -84,11 +82,11 @@ public class BuildingConverter {
         BuildingDTO buildingDTO = modelMapper.map(buildingEntity, BuildingDTO.class);
 
         // set rent areas
-        String rentAreasResponse = buildingEntity.getRentAreas()
-                                                 .stream()
-                                                 .map(rentArea -> rentArea.getValue().toString())
-                                                 .collect(Collectors.joining(","));
-        buildingDTO.setRentAreas(rentAreasResponse);
+//        String rentAreasResponse = buildingEntity.getRentAreas()
+//                                                 .stream()
+//                                                 .map(rentArea -> rentArea.getValue().toString())
+//                                                 .collect(Collectors.joining(","));
+        buildingDTO.setRentAreas("");
 
         // set image url
         FileEntity image =  buildingEntity.getImage();

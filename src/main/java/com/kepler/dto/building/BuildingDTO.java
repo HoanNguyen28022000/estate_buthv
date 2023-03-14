@@ -26,6 +26,9 @@ public class BuildingDTO {
     @NotNull(message = "Id tòa nhà cập nhật không đuợc null", groups = OnUpdate.class)
     private Long id;
 
+    @NotNull
+    private Integer totalFloor;
+
     @NotBlank(message = "Tên tòa nhà không được để trống", groups = FirstValidation.class)
     private String name;
 
