@@ -14,6 +14,7 @@ public class BuildingSearchResponse {
 	private String address;
 	private String typeName;
 	private String status;
+	private long totalFloor;
 	private long totalArea;
 	private long totalRentArea;
 	private long totalRentPrice;

@@ -132,6 +132,8 @@ public class BuildingService implements IBuildingService {
         floorEntity.setBuildingId(building.getId());
         floorEntity.setStt(stt);
         floorEntity.setPrice(building.getRentPrice());
+        floorEntity.setArea(building.getFloorArea());
+        floorEntity.setRentArea(0);
         return floorEntity;
     }
 

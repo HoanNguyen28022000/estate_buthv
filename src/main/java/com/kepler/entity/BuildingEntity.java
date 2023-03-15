@@ -33,8 +33,8 @@ public class BuildingEntity extends BaseEntity {
 //	@Column(name = "numberofbasement")
 //	private Integer numberOfBasement;
 	
-//	@Column(name = "floorarea")
-//	private Integer floorArea;
+	@Column(name = "floorarea")
+	private Integer floorArea;
 	
 //	@Column(name = "direction")
 //	private String direction;
