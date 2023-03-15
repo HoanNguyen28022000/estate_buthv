@@ -165,6 +165,8 @@
                                 <thead>
                                     <tr>
                                         <th>Thời gian tạo</th>
+                                        <th>Thời gian giao dịch từ</th>
+                                        <th>Thời gian giao dịch đến</th>
                                         <th>Ghi chú</th>
                                         <th>Loại giao dịch</th>
                                         <th>Người tạo</th>
@@ -175,6 +177,8 @@
                                     <c:forEach var="item" items="${transactions}">
                                         <tr>
                                             <td>${item.createTime}</td>
+                                            <td>08:02 17/03/2023</td>
+                                            <td>10:11 17/03/2023</td>
                                             <td>${item.note}</td>
                                             <td>${item.codeName}</td>
                                             <td><a style="color: black; text-decoration: underline" href="#" onclick="openModalUserInfo('${item.staffUserName}')">${item.staffUserName}</a> </td>
@@ -251,7 +255,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 id="modal-title" class="modal-title">Thêm giao dịch</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="height:400px">
                 <form class="form-horizontal" style="margin-top:10px" id="form-create-transaction">
 
                     <div class="form-group">
@@ -273,6 +277,20 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label class="col-sm-2" style="padding-top:7px" for="transaction-code">Thời gian giao dịch từ</label>
+                        <br>
+                        <div class="col-sm-10">
+                            <input style="display: block" type="datetime-local" id="create-date-from" name="createDateFrom" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2" style="padding-top:7px" for="transaction-code">Đến</label>
+                        <br>
+                        <div class="col-sm-10">
+                            <input style="display: block" type="datetime-local" id="create-date-to" name="createDateFrom" >
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -294,10 +312,14 @@
         $('#loading_image2').show();
         let formData = $("#form-create-transaction").serializeArray()
         let data = {}
+        let dateFrom = $("#create-date-from").val()
+        let dateTo = $("#create-date-to").val()
+        console.log({dateFrom,dateTo})
         data['customerId'] = $("#customer-id").val()
         $.each(formData, function (index, v) {
             data[v.name] = v.value;
         })
+
         let tranModal = $("#transactionModal")
         $.ajax({
             type: 'POST',
@@ -309,6 +331,8 @@
                 let objResponse = JSON.parse(response)
                 let row = '<tr>'
                 row += '<td>' + objResponse.createTime + '</td>'
+                row += '<td>' + dateFrom + '</td>'
+                row += '<td>' + dateTo + '</td>'
                 row += '<td>' + objResponse.note + '</td>'
                 row += '<td>' + objResponse.codeName + '</td>'
                 row += '<td><a style="color: black; text-decoration: underline" href="#" onclick="openModalUserInfo(' + "'" + objResponse.staffUserName + "'" + ')">' + objResponse.staffUserName +'</a> </td>'
