@@ -177,8 +177,8 @@
                                     <c:forEach var="item" items="${transactions}">
                                         <tr>
                                             <td>${item.createTime}</td>
-                                            <td>08:02 17/03/2023</td>
-                                            <td>10:11 17/03/2023</td>
+                                            <td>${item.startTime}</td>
+                                            <td>${item.endTime}</td>
                                             <td>${item.note}</td>
                                             <td>${item.codeName}</td>
                                             <td><a style="color: black; text-decoration: underline" href="#" onclick="openModalUserInfo('${item.staffUserName}')">${item.staffUserName}</a> </td>
@@ -281,14 +281,14 @@
                         <label class="col-sm-2" style="padding-top:7px" for="transaction-code">Thời gian giao dịch từ</label>
                         <br>
                         <div class="col-sm-10">
-                            <input style="display: block" type="datetime-local" id="create-date-from" name="createDateFrom" >
+                            <input style="display: block" type="datetime-local" id="create-date-from" name="startTime" >
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2" style="padding-top:7px" for="transaction-code">Đến</label>
                         <br>
                         <div class="col-sm-10">
-                            <input style="display: block" type="datetime-local" id="create-date-to" name="createDateFrom" >
+                            <input style="display: block" type="datetime-local" id="create-date-to" name="endTime" >
                         </div>
                     </div>
                 </form>
@@ -318,7 +318,8 @@
         data['customerId'] = $("#customer-id").val()
         $.each(formData, function (index, v) {
             data[v.name] = v.value;
-        })
+        });
+        console.log(data);
 
         let tranModal = $("#transactionModal")
         $.ajax({

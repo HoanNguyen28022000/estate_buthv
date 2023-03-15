@@ -18,6 +18,12 @@ public class TransactionEntity extends BaseEntity {
     @Column(name = "note")
     private String note;
 
+    @Column(name = "startdate")
+    private String startDate;
+
+    @Column(name = "enddate")
+    private String endDate;
+
     @ManyToOne
     @JoinColumn(name = "customerid")
     private CustomerEntity customer;

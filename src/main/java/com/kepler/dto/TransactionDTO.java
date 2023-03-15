@@ -22,4 +22,8 @@ public class TransactionDTO {
     private String staffUserName;
 
     private String createTime;
+
+    private String startTime;
+
+    private String endTime;
 }

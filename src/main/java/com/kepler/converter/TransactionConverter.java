@@ -19,6 +19,8 @@ public class TransactionConverter {
         transactionDTO.setNote(transactionEntity.getNote());
         transactionDTO.setCodeName(TransactionTypesEnum.valueOf(transactionEntity.getCode()).getTransactionName());
         transactionDTO.setStaffUserName(transactionEntity.getCreatedBy());
+        transactionDTO.setStartTime(transactionEntity.getStartDate());
+        transactionDTO.setEndTime(transactionEntity.getEndDate());
 
         LocalDateTime createdDate = transactionEntity.getCreatedDate();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy");
@@ -33,6 +35,8 @@ public class TransactionConverter {
 
         transactionEntity.setCode(transactionDTO.getCode());
         transactionEntity.setNote(transactionDTO.getNote());
+        transactionEntity.setStartDate(transactionDTO.getStartTime());
+        transactionEntity.setEndDate(transactionDTO.getEndTime());
 
         CustomerEntity customerEntity = new CustomerEntity();
         customerEntity.setId(transactionDTO.getCustomerId());
