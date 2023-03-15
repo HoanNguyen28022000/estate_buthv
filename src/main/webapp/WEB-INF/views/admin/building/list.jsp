@@ -118,10 +118,10 @@
                                                     <label for="building-name">Tên toà nhà</label>
                                                     <input type="text" id="building-name" class="form-control" name="name" value="${modelSearch.name}"/>
                                                 </div>
-                                                <div class="col-xs-12 col-sm-6">
-                                                    <label for="dien-tich-san">Diện tích sàn</label>
-                                                    <input type="number" id="dien-tich-san" class="form-control" name="floorArea" value="${modelSearch.floorArea}"/>
-                                                </div>
+<%--                                                <div class="col-xs-12 col-sm-6">--%>
+<%--                                                    <label for="dien-tich-san">Diện tích sàn</label>--%>
+<%--                                                    <input type="number" id="dien-tich-san" class="form-control" name="floorArea" value="${modelSearch.floorArea}"/>--%>
+<%--                                                </div>--%>
                                             </div>
 
                                             <div class="form-group">
@@ -159,14 +159,14 @@
 <%--                                            </div>--%>
 
                                             <div class="form-group">
-                                                <div class="col-xs-12 col-sm-3">
-                                                    <label for="rent-area-from">Diện tích thuê từ</label>
-                                                    <input type="number" id="rent-area-from" class="form-control" name="rentAreaFrom" value="${modelSearch.rentAreaFrom}"/>
-                                                </div>
-                                                <div class="col-xs-12 col-sm-3">
-                                                    <label for="rent-area-to">Diện tích thuê đến</label>
-                                                    <input type="number" id="rent-area-to" class="form-control" name="rentAreaTo" value="${modelSearch.rentAreaTo}"/>
-                                                </div>
+<%--                                                <div class="col-xs-12 col-sm-3">--%>
+<%--                                                    <label for="rent-area-from">Diện tích thuê từ</label>--%>
+<%--                                                    <input type="number" id="rent-area-from" class="form-control" name="rentAreaFrom" value="${modelSearch.rentAreaFrom}"/>--%>
+<%--                                                </div>--%>
+<%--                                                <div class="col-xs-12 col-sm-3">--%>
+<%--                                                    <label for="rent-area-to">Diện tích thuê đến</label>--%>
+<%--                                                    <input type="number" id="rent-area-to" class="form-control" name="rentAreaTo" value="${modelSearch.rentAreaTo}"/>--%>
+<%--                                                </div>--%>
                                                 <div class="col-xs-12 col-sm-3">
                                                     <label for="gia-thue-tu">Giá thuê từ</label>
                                                     <input type="number" id="gia-thue-tu" class="form-control" name="rentPriceFrom" value="${modelSearch.rentPriceFrom}"/>
@@ -177,54 +177,54 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group">
-                                                <div class="col-xs-12 col-sm-4">
-                                                    <label for="manager-name">Tên quản lý</label>
-                                                    <input
-                                                            type="text" id="manager-name" name="managerName" class="form-control" value="${modelSearch.managerName}"
-                                                            <security:authorize access="hasRole('staff')">
-                                                                disabled
-                                                            </security:authorize>
-                                                    />
-                                                </div>
-                                                <div class="col-xs-12 col-sm-4">
-                                                    <label for="manager-phone-number">Điện thoại quản lý</label>
-                                                    <input
-                                                            type="text" id="manager-phone-number" name="managerPhoneNumber" class="form-control" value="${modelSearch.managerPhoneNumber}"
-                                                            <security:authorize access="hasRole('staff')">
-                                                                disabled
-                                                            </security:authorize>
-                                                    />
-                                                </div>
-                                                <div class="col-xs-12 col-sm-4">
-                                                    <label for="staffName">Chọn nhân viên phụ trách</label>
-                                                    <br>
-                                                    <security:authorize access="hasRole('staff')">
-                                                        <input id="staffName" class="form-control" value="<security:authentication property="principal.fullName"/>" disabled/>
-                                                    </security:authorize>
+<%--                                            <div class="form-group">--%>
+<%--                                                <div class="col-xs-12 col-sm-4">--%>
+<%--                                                    <label for="manager-name">Tên quản lý</label>--%>
+<%--                                                    <input--%>
+<%--                                                            type="text" id="manager-name" name="managerName" class="form-control" value="${modelSearch.managerName}"--%>
+<%--                                                            <security:authorize access="hasRole('staff')">--%>
+<%--                                                                disabled--%>
+<%--                                                            </security:authorize>--%>
+<%--                                                    />--%>
+<%--                                                </div>--%>
+<%--                                                <div class="col-xs-12 col-sm-4">--%>
+<%--                                                    <label for="manager-phone-number">Điện thoại quản lý</label>--%>
+<%--                                                    <input--%>
+<%--                                                            type="text" id="manager-phone-number" name="managerPhoneNumber" class="form-control" value="${modelSearch.managerPhoneNumber}"--%>
+<%--                                                            <security:authorize access="hasRole('staff')">--%>
+<%--                                                                disabled--%>
+<%--                                                            </security:authorize>--%>
+<%--                                                    />--%>
+<%--                                                </div>--%>
+<%--                                                <div class="col-xs-12 col-sm-4">--%>
+<%--                                                    <label for="staffName">Chọn nhân viên phụ trách</label>--%>
+<%--                                                    <br>--%>
+<%--                                                    <security:authorize access="hasRole('staff')">--%>
+<%--                                                        <input id="staffName" class="form-control" value="<security:authentication property="principal.fullName"/>" disabled/>--%>
+<%--                                                    </security:authorize>--%>
 
-                                                    <security:authorize access="hasRole('manager')">
-                                                        <form:select path="staffId">
-                                                            <form:option value="" label="--- Tất cả ---"/>
-                                                            <form:options items="${staffsMap}" />
-                                                        </form:select>
-                                                    </security:authorize>
-                                                </div>
-                                            </div>
+<%--                                                    <security:authorize access="hasRole('manager')">--%>
+<%--                                                        <form:select path="staffId">--%>
+<%--                                                            <form:option value="" label="--- Tất cả ---"/>--%>
+<%--                                                            <form:options items="${staffsMap}" />--%>
+<%--                                                        </form:select>--%>
+<%--                                                    </security:authorize>--%>
+<%--                                                </div>--%>
+<%--                                            </div>--%>
 
                                             <div class="form-group">
                                                 <div class="col-xs-12 col-sm-4">
                                                     <label for="level">Hạng</label>
                                                     <input type="text" id="level" class="form-control" name="level" value="${modelSearch.level}"/>
                                                 </div>
-                                                <div class="col-xs-12 col-sm-4">
-                                                    <label for="rentStatus">Trạng thái</label>
-                                                    <br>
-                                                    <form:select path="rentStatus">
-                                                        <form:option value="" label="--- Tất cả ---"/>
-                                                        <form:options items="${buildingRentStatus}" />
-                                                    </form:select>
-                                                </div>
+<%--                                                <div class="col-xs-12 col-sm-4">--%>
+<%--                                                    <label for="rentStatus">Trạng thái</label>--%>
+<%--                                                    <br>--%>
+<%--                                                    <form:select path="rentStatus">--%>
+<%--                                                        <form:option value="" label="--- Tất cả ---"/>--%>
+<%--                                                        <form:options items="${buildingRentStatus}" />--%>
+<%--                                                    </form:select>--%>
+<%--                                                </div>--%>
                                                 <div class="col-xs-12 col-sm-2">
                                                     <label for="create-date-from">Thời gian tạo từ</label>
                                                     <input style="display: block" type="date" id="create-date-from" name="createDateFrom" value="${modelSearch.createDateFrom}">
@@ -290,7 +290,7 @@
 <%--                                            <th>Nhân viên quản lý</th>--%>
                                             <th>Diện tích khả dụng</th>
                                             <th>Diện tích đã thuê</th>
-                                            <th>Tổng tiền cho thuê</th>
+                                            <th>Tổng tiền cho thuê (VND)</th>
                                             <th>Loại tòa nhà</th>
                                             <th>Trạng thái</th>
                                             <th>Thao tác</th>
@@ -312,7 +312,7 @@
 <%--                                                <td id="col-manager-info">${item.managersInfo}</td>--%>
                                                 <td>${item.totalArea} <c:if test="${item.totalArea != null}"> m^2</c:if> </td>
                                                 <td>${item.totalRentArea} <c:if test="${item.totalRentPrice != null}"> m^2</c:if> </td>
-                                                <td>${item.totalRentPrice} <c:if test="${item.totalRentPrice != null}"> triệu</c:if> </td>
+                                                <td>${item.totalRentPrice} <c:if test="${item.totalRentPrice != null}"></c:if> </td>
                                                 <td>${item.typeName}</td>
                                                 <td>${item.status}</td>
                                                 <td>

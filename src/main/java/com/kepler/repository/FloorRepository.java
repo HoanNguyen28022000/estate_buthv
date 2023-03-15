@@ -9,4 +9,5 @@ import java.util.List;
 public interface FloorRepository extends JpaRepository<FloorEntity, Long> {
     List<FloorEntity> findAllByBuildingId(Long id);
     List<FloorEntity> findAllByBuildingIdIn(List<Long> ids);
+    List<FloorEntity> findAllByManagerIdAndBuildingId(Long managerId, Long bId);
 }

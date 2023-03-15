@@ -2,7 +2,9 @@ package com.kepler.repository.custom.impl;
 
 import com.kepler.dto.building.BuildingSearchRequest;
 import com.kepler.entity.BuildingEntity;
+import com.kepler.repository.BuildingRepository;
 import com.kepler.repository.custom.BuildingRepositoryCustom;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -35,38 +37,38 @@ public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
 	@Override
 	public Page<BuildingEntity> findByCondition(BuildingSearchRequest searchRequest, Long currentLoggedInStaffId) {
 
-		// build search query
-		StringBuilder whereQuery = new StringBuilder();
-		StringBuilder joinQuery = new StringBuilder();
+			// build search query
+			StringBuilder whereQuery = new StringBuilder();
+			StringBuilder joinQuery = new StringBuilder();
 
-		whereQuery.append("\nWHERE 1 = 1");
+			whereQuery.append("\nWHERE 1 = 1");
 
-		Map<String, Object> queryParameters = new HashMap<>();
-		prepareSearchQueryWithoutJoin(searchRequest, whereQuery, queryParameters);
-		prepareSearchQueryWithJoin(searchRequest, whereQuery, joinQuery, queryParameters);
+			Map<String, Object> queryParameters = new HashMap<>();
+			prepareSearchQueryWithoutJoin(searchRequest, whereQuery, queryParameters);
+			prepareSearchQueryWithJoin(searchRequest, whereQuery, joinQuery, queryParameters);
 
-		if (currentLoggedInStaffId != null) { // if current logged-in user is staff
-			joinQuery.append("\nLEFT JOIN b.staffs user");
-			whereQuery.append("\nAND user.id = ").append(currentLoggedInStaffId);
-		}
+			if (currentLoggedInStaffId != null) { // if current logged-in user is staff
+				joinQuery.append("\nLEFT JOIN b.staffs user");
+				whereQuery.append("\nAND user.id = ").append(currentLoggedInStaffId);
+			}
 
-		String whereQueryStr = whereQuery.toString();
-		String joinQueryStr = joinQuery.toString();
+			String whereQueryStr = whereQuery.toString();
+			String joinQueryStr = joinQuery.toString();
 
-		// get list building for this page and count total number of buildings
-		long numberOfBuildings = countTotalBuildingsByCondition(whereQueryStr, joinQueryStr, queryParameters);
+			// get list building for this page and count total number of buildings
+			long numberOfBuildings = countTotalBuildingsByCondition(whereQueryStr, joinQueryStr, queryParameters);
 
-		int currentPage = searchRequest.getPage();
-		int limit = searchRequest.getLimit();
-		Pageable pageable = PageRequest.of(currentPage - 1, limit);
+			int currentPage = searchRequest.getPage();
+			int limit = searchRequest.getLimit();
+			Pageable pageable = PageRequest.of(currentPage - 1, limit);
 
-		if (numberOfBuildings > 0) {
-			List<Long> buildingsId = getBuildingsIdByCondition(whereQueryStr, joinQueryStr, queryParameters, pageable);
-			List<BuildingEntity> buildings = getBuildingsByIds(buildingsId); // get building detail
-			return new PageImpl<>(buildings, pageable, numberOfBuildings);
-		}
+			if (numberOfBuildings > 0) {
+				List<Long> buildingsId = getBuildingsIdByCondition(whereQueryStr, joinQueryStr, queryParameters, pageable);
+				List<BuildingEntity> buildings = getBuildingsByIds(buildingsId); // get building detail
+				return new PageImpl<>(buildings, pageable, numberOfBuildings);
+			}
 
-		return new PageImpl<>(new ArrayList<>(), pageable, 0);
+			return new PageImpl<>(new ArrayList<>(), pageable, 0);
 	}
 
 	@SuppressWarnings("JpaQlInspection")

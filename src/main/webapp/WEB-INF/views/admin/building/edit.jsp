@@ -169,7 +169,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-2" style="padding-top:7px" for="rental-price"> Giá thông thường</label>
+                            <label class="col-sm-2" style="padding-top:7px" for="rental-price"> Giá thông thường (VND)</label>
                             <div class="col-sm-10">
                                 <input type="number" id="rental-price" name="rentPrice" value="${building.rentPrice}" class="col-sm-12" />
                             </div>
@@ -309,11 +309,11 @@
                                         <thead>
                                         <tr>
                                             <th>STT Tầng</th>
-                                            <th>Giá thuê</th>
+                                            <th>Giá thuê (VND)</th>
                                             <th>Diện tích</th>
                                             <th>Diện tích thuê</th>
-                                            <th>Trạng thái</th>
                                             <th>Nhân viên phụ trách</th>
+                                            <th>Trạng thái</th>
                                             <th>Thao tác</th>
                                         </tr>
                                         </thead>
@@ -327,7 +327,7 @@
                                                     <td>${floor.managerName}</td>
                                                     <td>${floor.status}</td>
                                                     <th>
-                                                        <span data-toggle="modal" data-target="#exampleModalLong" style="width:30px;height:30px;cursor: pointer">
+                                                        <span onclick="fillFloor('${floor.id}', '${floor.area}', '${floor.rentArea}', '${floor.price}', '${floor.managerId}')" data-toggle="modal" data-target="#exampleModalLong" style="width:30px;height:30px;cursor: pointer">
                                                             <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
                                                         </span>
                                                     </th>
@@ -342,10 +342,12 @@
                         </div>
 
                         <div style="text-align: center;">
-                            <button id="submit-building" class="btn btn-info">
-                                <i class="ace-icon fa fa-check bigger-110"></i>
-                                Xác nhận
-                            </button>
+                            <security:authorize access="hasRole('manager')">
+                                <button id="submit-building" class="btn btn-info">
+                                    <i class="ace-icon fa fa-check bigger-110"></i>
+                                    Xác nhận
+                                </button>
+                            </security:authorize>
 
                             &nbsp; &nbsp; &nbsp;
                             <button class="btn" type="reset">
@@ -374,30 +376,31 @@
             </div>
             <div class="modal-body" style="height: 400px;">
                 <div>
+                    <input type="number" id="fId" hidden/>
                     <div class="form-group" style="height:50px">
                         <label class="col-sm-4" style="padding-top:7px" for="area">Diện tích</label>
                         <div class="col-sm-8">
-                            <input type="number" id="area" name="area" class="col-sm-12" />
+                            <input type="number" id="fArea" name="area" class="col-sm-12" />
                         </div>
                     </div>
                     <div class="form-group" style="height:50px">
                         <label class="col-sm-4" style="padding-top:7px" for="rentArea">Diện tích thuê</label>
                         <div class="col-sm-8">
-                            <input type="number" id="rentArea" name="rentArea" class="col-sm-12" />
+                            <input type="number" id="fRentArea" name="rentArea" class="col-sm-12" />
                         </div>
                     </div>
                     <div class="form-group" style="height:50px">
                         <label class="col-sm-4" style="padding-top:7px" for="price">Giá (<p style="display: inline-block;">m<sup>2</sup></p> )</label>
                         <div class="col-sm-8">
-                            <input type="number" id="price" name="price" class="col-sm-12" />
+                            <input type="number" id="fPrice" name="price" class="col-sm-12" />
                         </div>
                     </div>
-                    <div class="form-group" style="height:50px">
-                        <label class="col-sm-4" style="padding-top:7px" for="status">Trạng thái</label>
-                        <div class="col-sm-8">
-                            <input type="number" id="status" name="status" class="col-sm-12" />
-                        </div>
-                    </div>
+<%--                    <div class="form-group" style="height:50px">--%>
+<%--                        <label class="col-sm-4" style="padding-top:7px" for="status">Trạng thái</label>--%>
+<%--                        <div class="col-sm-8">--%>
+<%--                            <input type="text" id="fStatus" name="status" class="col-sm-12" />--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
                     <div class="form-group" style="height:50px;display: flex;">
                         <label for="staffName" class="col-sm-4" style="padding-top:7px">Chọn nhân viên phụ trách</label>
                         <br>
@@ -407,7 +410,7 @@
                             </security:authorize>
 
                             <security:authorize access="hasRole('manager')">
-                                <select>
+                                <select id="fManager">
                                     <option value="" label="--- Tất cả ---"/>
                                     <c:forEach var="item" items="${staffsMap}">
                                         <option value="${item.key}">${item.value}</option>
@@ -421,13 +424,54 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                <button type="button" class="btn btn-primary">Lưu</button>
+                <button type="button" onclick="updateFloor()" data-dismiss="modal" class="btn btn-primary">Lưu</button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
+    function fillFloor(id, area, rentArea, price, managerId) {
+        console.log("================ " + id + area + rentArea + price + managerId);
+        $('#fId').val(id);
+        $('#fArea').val(area);
+        $('#fRentArea').val(rentArea);
+        $('#fPrice').val(price);
+        // $('#fStatus').val(status);
+        if(managerId === null || managerId === undefined || managerId.length === 0) {
+        } else {
+            $('#fManager').val(managerId);
+        }
+    }
+
+    function updateFloor() {
+        let fId = $('#fId').val();
+        let fArea = $('#fArea').val();
+        let fRentArea = $('#fRentArea').val();
+        let fPrice = $('#fPrice').val();
+        let fManager = $('#fManager').val();
+        $.ajax({
+            url: 'http://localhost:8080/spring_boot_war/building/' + fId + '/floor',
+            data: JSON.stringify({
+                id: fId,
+                area: fArea,
+                price: fPrice,
+                rentArea: fRentArea,
+                managerId: fManager
+            }),
+            type: 'PUT',
+            contentType: "application/json",
+            dataType: "json",
+            success: function () {
+                showAlert("Bạn đã cập nhật thông tin tòa nhà!");
+            },
+            error: function (response) {
+                showAlertError("Cập nhật thất bại")
+            }
+        });
+        window.location.href;
+    }
+
     function readURL(input) {
         if (input.files && input.files[0]) {
             let reader = new FileReader();

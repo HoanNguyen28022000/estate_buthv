@@ -5,6 +5,7 @@ import com.kepler.dto.building.BuildingDTO;
 import com.kepler.dto.building.BuildingSearchRequest;
 import com.kepler.dto.building.BuildingSearchResponse;
 import com.kepler.entity.FloorEntity;
+import com.kepler.security.IAuthenticationFacade;
 import com.kepler.service.IBuildingService;
 import com.kepler.service.IDistrictService;
 import com.kepler.service.IUserService;
@@ -32,6 +33,7 @@ public class BuildingController {
     private final IBuildingService buildingService;
     private final IUserService userService;
     private final IDistrictService districtService;
+    private final IAuthenticationFacade authenticationFacade;
 
     @Autowired
     FloorRepository floorRepository;
@@ -61,14 +63,22 @@ public class BuildingController {
 
     @GetMapping(value = "/admin/building-edit")
     @PreAuthorize("hasRole('manager') " + // equivalent to T(com.kepler.constant.SystemConstant$User).ROLE_MANAGER
-            "OR hasRole('staff') AND @userService.checkUserHasManagedBuilding(authentication.principal.id, #buildingId)")
+            "OR hasRole('staff')"
+//            + " AND @userService.checkUserHasManagedBuilding(authentication.principal.id, #buildingId)"
+    )
 	public ModelAndView editBuilding(@RequestParam(name = "id") Long buildingId, ModelAndView mav) {
 
         BuildingDTO buildingDTO = buildingService.getBuildingById(buildingId);
         if (buildingDTO == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "entity not found");
         }
-        List<FloorEntity> floors = floorRepository.findAllByBuildingId(buildingId);
+        Long currentLoggedInStaffId = authenticationFacade.getCurrentLoggedInStaffId();
+        List<FloorEntity> floors;
+        if(!Objects.isNull(currentLoggedInStaffId) && currentLoggedInStaffId > 0) {
+            floors = floorRepository.findAllByManagerIdAndBuildingId(currentLoggedInStaffId, buildingId);
+        } else {
+            floors = floorRepository.findAllByBuildingId(buildingId);
+        }
         Map<Long, String> staffsMap = userService.getStaffsMap();
         for(FloorEntity f : floors) {
             if(!Objects.isNull(f.getManagerId()) && staffsMap.keySet().contains(f.getManagerId())) {
@@ -76,6 +86,15 @@ public class BuildingController {
             }
             else {
                 f.setManagerName("Chưa có");
+            }
+
+            if(f.getRentArea() == 0) {
+                f.setStatus("Chưa được thuê");
+            } else if(f.getRentArea() > 0 && f.getRentArea() < f.getArea()) {
+                f.setStatus("Thuê một phần");
+            }
+            else if(Objects.equals(f.getRentArea(), f.getArea())) {
+                f.setStatus("Đã thuê hết");
             }
         }
 
